@@ -7,12 +7,13 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "../src/theme";
 import withMetrika from "../src/Metrika";
+import "../styles/globals.css";
 
 import SEO from "../next-seo.config";
 
 import "nprogress/nprogress.css";
 import ContextWrapper from "../components/ContextWrapper";
-import MainLayout from "@/layout/Main";
+import MainLayout from "layout/Main";
 
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout ? Component.Layout : React.Fragment;

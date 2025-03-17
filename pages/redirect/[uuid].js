@@ -1,5 +1,5 @@
 import { NextSeo } from "next-seo";
-import MainLayout from "@/layout/Main";
+import MainLayout from "layout/Main";
 
 const Uuid = () => {
   const SEO = {
@@ -17,10 +17,11 @@ const Uuid = () => {
 Uuid.Layout = MainLayout;
 
 export async function getServerSideProps(context) {
-  const { NEXT_PUBLIC_API_URL } = process.env;
   const { uuid } = context.params;
 
-  const res = await fetch(`${NEXT_PUBLIC_API_URL}/redirect/${uuid}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/redirect/${uuid}`
+  );
   const data = await res.json();
 
   if (!data?.url) {

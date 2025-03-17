@@ -4,10 +4,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import FormikInput from "@/src/Formik/FormikInput";
-import FormikSelect from "@/src/Formik/FormikSelect";
-import CheckboxGroup from "@/src/Formik/CheckboxGroup";
-import FormikDate from "@/src/Formik/FormikDate";
+import FormikInput from "src/Formik/FormikInput";
+import FormikSelect from "src/Formik/FormikSelect";
+import CheckboxGroup from "src/Formik/CheckboxGroup";
+import FormikDate from "src/Formik/FormikDate";
 
 function StepWorldForm({ chronicleOptions, labelOptions }) {
   return (

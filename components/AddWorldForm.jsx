@@ -2,17 +2,15 @@ import React from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import PropTypes from "prop-types";
-import FormikSelect from "@/components/Formik/FormikSelect";
-import FormikInput from "@/components/Formik/FormikInput";
-import CheckboxGroup from "@/components/Formik/CheckboxGroup";
-import FormikDate from "@/components/Formik/FormikDate";
+import FormikSelect from "components/Formik/FormikSelect";
+import FormikInput from "components/Formik/FormikInput";
+import CheckboxGroup from "components/Formik/CheckboxGroup";
+import FormikDate from "components/Formik/FormikDate";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
 function AddWorldForm({ chronicleOptions, labelOptions }) {
-  const { NEXT_PUBLIC_API_URL } = process.env;
-
   const initialValues = {
     link: "",
     chronicle: "",
@@ -37,7 +35,7 @@ function AddWorldForm({ chronicleOptions, labelOptions }) {
 
   const onSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      const res = await fetch(`${NEXT_PUBLIC_API_URL}/worlds`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/worlds`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

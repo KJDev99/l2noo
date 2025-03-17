@@ -13,7 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { styled } from "@mui/material/styles";
-import Global from "@/contexts/global";
+import Global from "contexts/global";
 
 const RootContainer = styled(Container)(() => ({
   paddingLeft: 0,

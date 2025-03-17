@@ -1,7 +1,7 @@
 import React from "react";
 import { NextSeo } from "next-seo";
 import { makeStyles } from "@mui/styles";
-import WithoutSidebarLayout from "@/layout/WithoutSidebar";
+import WithoutSidebarLayout from "layout/WithoutSidebar";
 
 const statusCodes = {
   400: "Неверный запрос",

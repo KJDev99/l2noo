@@ -1,19 +1,18 @@
 import React from "react";
 import { NextSeo } from "next-seo";
-// import SidebarLayout from "layout/Sidebar";
 import fetch from "isomorphic-unfetch";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import WorldAddForm from "@/components/WorldAddFrom";
-import StepFeatureForm from "@/components/WorldAddFrom/StepFeatureFrom";
-import WorldAddFormStep from "@/components/WorldAddFrom/WorldAddFormStep";
-import StepWorldForm from "@/components/WorldAddFrom/StepWorldForm";
+import WorldAddForm from "components/WorldAddFrom";
+import StepFeatureForm from "components/WorldAddFrom/StepFeatureFrom";
+import WorldAddFormStep from "components/WorldAddFrom/WorldAddFormStep";
+import StepWorldForm from "components/WorldAddFrom/StepWorldForm";
 import World from "../components/World";
 import * as Yup from "yup";
-import SidebarLayout from "@/layout/Sidebar";
+import SidebarLayout from "layout/Sidebar";
 
 const SEO = {
   title: "Добавить новый сервер L2 в анонсы",
@@ -195,19 +194,20 @@ AddWorld.propTypes = {
 };
 
 export async function getStaticProps() {
-  const { NEXT_PUBLIC_API_URL } = process.env;
   const [chroniclesData, chroniclesFormData, labelsData, labelsFormData] =
     await Promise.all([
       fetch(
-        `${NEXT_PUBLIC_API_URL}/chronicles?filter[show_in_sidebar]=1&sort=sort`
+        `${process.env.NEXT_PUBLIC_API_URL}/chronicles?filter[show_in_sidebar]=1&sort=sort`
       ).then((res) => res.json()),
-      fetch(`${NEXT_PUBLIC_API_URL}/chronicles?sort=name`).then((res) =>
-        res.json()
-      ),
-      fetch(`${NEXT_PUBLIC_API_URL}/labels`).then((res) => res.json()),
-      fetch(`${NEXT_PUBLIC_API_URL}/labels?available_for_selection=true`).then(
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/chronicles?sort=name`).then(
         (res) => res.json()
       ),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/labels`).then((res) =>
+        res.json()
+      ),
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/labels?available_for_selection=true`
+      ).then((res) => res.json()),
     ]);
   return {
     props: { chroniclesForm: chroniclesFormData, labelsForm: labelsFormData },

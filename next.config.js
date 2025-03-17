@@ -1,19 +1,5 @@
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-export default {
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      layout: path.join(__dirname, "layout"),
-      components: path.join(__dirname, "components"),
-      contexts: path.join(__dirname, "contexts"),
-      public: path.join(__dirname, "public"),
-    };
-    return config;
-  },
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   async redirects() {
     return [
       { source: "/chronicle/c4", destination: "/c4", permanent: true },
@@ -76,3 +62,5 @@ export default {
     ];
   },
 };
+
+module.exports = nextConfig;

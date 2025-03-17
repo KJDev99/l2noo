@@ -19,21 +19,21 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 const drawerWidth = 240;
 
 const Root = styled("nav")(({ theme }) => ({
-  [theme.breakpoints.up("md")]: {
-    width: `calc(${drawerWidth}px + ${theme.spacing(3) * 2}px)`,
+  [theme.breakpoints.up("sm")]: {
+    width: `calc(${drawerWidth}px + ${parseInt(theme.spacing(3), 10) * 2}px)`,
     flexShrink: 0,
-    padding: theme.spacing(3),
+    padding: parseInt(theme.spacing(3), 10),
   },
   backgroundColor: "#ECF5F8",
 }));
 
 const DrawerPaper = styled("div")(({ theme }) => ({
-  width: `calc(${drawerWidth}px + ${theme.spacing(3) * 2}px)`,
-  padding: theme.spacing(3),
+  width: `calc(${drawerWidth}px + ${parseInt(theme.spacing(3), 10) * 2}px)`,
+  padding: parseInt(theme.spacing(3), 10),
 }));
 
 const ChronicleListRoot = styled("div")(({ theme }) => ({
-  paddingBottom: theme.spacing(3),
+  paddingBottom: parseInt(theme.spacing(3), 10),
 }));
 
 const ChronicleList = styled(List)(({ theme }) => ({
@@ -44,7 +44,7 @@ const ChronicleList = styled(List)(({ theme }) => ({
 
 const ChronicleListItem = styled(ListItem)(({ theme }) => ({
   color: "inherit",
-  width: `calc(100% / 2 - ${theme.spacing(1)}px)`,
+  width: `calc(100% / 2 - ${parseInt(theme.spacing(1), 10)}px)`,
   padding: "unset",
   marginRight: theme.spacing(1),
   marginBottom: theme.spacing(0.5),
@@ -64,10 +64,11 @@ const ChronicleListItemTextRoot = styled(ListItemText)({
 const ChronicleListItemText = styled("span")({
   fontWeight: 500,
   fontSize: rem(14),
+  textWrap: "nowrap",
 });
 
 const BennerRoot = styled("div")(({ theme }) => ({
-  paddingBottom: theme.spacing(3),
+  paddingBottom: parseInt(theme.spacing(3), 10),
   width: 240,
   height: 400,
   boxSizing: "unset",
@@ -77,7 +78,7 @@ const ChipsRoot = styled("div")(({ theme }) => ({
   display: "flex",
   flexWrap: "wrap",
   "& > *": {
-    margin: theme.spacing(0.5),
+    margin: parseInt(theme.spacing(0.5), 10),
   },
 }));
 
@@ -116,7 +117,12 @@ function Sidebar({ window, chronicles, labels }) {
   const chroniclesView = (
     <ChronicleListRoot>
       <ChronicleList>
-        <Link href="/" passHref>
+        {/* Barcha xronikalar uchun link */}
+        <Link
+          href="/"
+          passHref
+          style={{ textDecoration: "none", color: "inherit", width: "50%" }}
+        >
           <ChronicleListItem
             component="a"
             className={clsx(router.pathname === "/" && "current")}
@@ -129,9 +135,19 @@ function Sidebar({ window, chronicles, labels }) {
             />
           </ChronicleListItem>
         </Link>
+
+        {/* Har bir xronika uchun link */}
         {chronicles.map((chronicle) => (
           <React.Fragment key={chronicle.chronicleId}>
-            <Link href={"/" + chronicle.slug} passHref>
+            <Link
+              href={"/" + chronicle.slug}
+              passHref
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                width: "calc(50% - 8px)",
+              }}
+            >
               <ChronicleListItem
                 component="a"
                 className={clsx(
@@ -150,8 +166,18 @@ function Sidebar({ window, chronicles, labels }) {
                 />
               </ChronicleListItem>
             </Link>
+
+            {/* Interlude+ uchun alohida link */}
             {chronicle.slug === "interlude" && (
-              <Link href="/interlude/plus" passHref>
+              <Link
+                href="/interlude/plus"
+                passHref
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  width: "calc(50% - 8px)",
+                }}
+              >
                 <ChronicleListItem
                   component="a"
                   className={clsx(
@@ -192,7 +218,7 @@ function Sidebar({ window, chronicles, labels }) {
     <BennerRoot>
       <Link href="https://l2noo.ru/add-world" passHref>
         <Image
-          src="/images/benner/mesto_svobodno.png"
+          src="/images/benner/240.gif"
           alt="Место свободно"
           width={240}
           height={400}
@@ -226,15 +252,6 @@ function Sidebar({ window, chronicles, labels }) {
     </>
   );
 
-  // useEffect(() => {
-  //   setIsIOS(
-  //     typeof window !== "undefined" &&
-  //       /iPad|iPhone|iPod/.test(navigator.userAgent)
-  //   );
-  // }, []);
-  // const iOS =
-  //   typeof window !== "undefined" &&
-  //   /iPad|iPhone|iPod/.test(navigator.userAgent);
   const [isClient, setIsClient] = useState(false);
   const iOS =
     typeof window !== "undefined" &&

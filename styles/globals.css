@@ -1,0 +1,18 @@
+.css-d8hmhy.blue span a span,
+.css-1p19hu6-MuiButtonBase-root-MuiButton-root,
+.css-14zi6z7 {
+  color: white !important;
+}
+.css-d8hmhy span a span {
+  color: #2d2d2d !important;
+}
+
+@media (max-width: 767px) {
+  .MuiGrid-root.MuiGrid-item.MuiGrid-grid-sm-true.css-1svsnbg-MuiGrid-root {
+    width: 100%;
+  }
+  .css-1qw2a80-MuiGrid-root > .MuiGrid-item {
+    /* padding-left: 0px; */
+    /* w100% */
+  }
+}

@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import { useFormikContext } from "formik";
-import FormikFeature from "@/src/Formik/FormikFeature";
+import FormikFeature from "src/Formik/FormikFeature";
 
 function StepFeatureForm({ featureOptions }) {
   const { values } = useFormikContext();

@@ -27,6 +27,8 @@ const SidebarLayout = ({ window, children }) => {
   const chronicles = children?.props?.chronicles || [];
   const labels = children?.props?.labels || [];
 
+  console.log("chroniclesparets", chronicles);
+
   return (
     <Root maxWidth="lg" disableGutters>
       <Content>{children}</Content>

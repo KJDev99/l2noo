@@ -16,7 +16,6 @@ import Typography from "@mui/material/Typography";
 import Link from "next/link";
 
 function WorldAddForm({ children, ...props }) {
-  const { NEXT_PUBLIC_API_URL } = process.env;
   const childrenArray = React.Children.toArray(children);
   const [step, setStep] = useState(0);
   const [completed, setCompleted] = useState(false);
@@ -32,11 +31,14 @@ function WorldAddForm({ children, ...props }) {
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
           try {
-            const res = await fetch(`${NEXT_PUBLIC_API_URL}/worlds`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(values),
-            });
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/worlds`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(values),
+              }
+            );
 
             const data = await res.json();
             if (res.ok) {

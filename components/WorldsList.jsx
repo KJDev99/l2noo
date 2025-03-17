@@ -2,23 +2,24 @@ import React from "react";
 import World from "./World";
 import { rem } from "polished";
 import Grid from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
+import { styled } from "@mui/system";
 import Typography from "@mui/material/Typography";
 
+// MUI 5 da makeStyles ni styled bilan almashtiramiz
 const Root = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
 }));
 
-const Header = styled(Typography)({
+const Header = styled(Typography)(({ theme }) => ({
   fontWeight: 600,
   fontSize: rem(18),
   textTransform: "uppercase",
   marginBottom: 25,
-});
+}));
 
-const Hr = styled(Typography)({
+const Hr = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   fontSize: rem(14),
   display: "flex",
@@ -29,30 +30,64 @@ const Hr = styled(Typography)({
   margin: "25px -5px 15px -5px",
   padding: "0 10px",
   borderRadius: 3,
-});
+}));
 
-function WorldsList({ worlds }) {
+function WorldsList({ worlds = {} }) {
+  // worlds ni default qiymat bilan ta'minlash
   let defaultColumns = {
     soon: {
       blocks: {
-        vip: { blocks: { vip: { starts: [] }, top: { starts: [] } } },
-        today: { starts: [] },
-        tomorrow: { starts: [] },
-        immediate: { starts: [] },
-        late: { starts: [] },
+        vip: {
+          blocks: {
+            vip: {
+              starts: [],
+            },
+            top: {
+              starts: [],
+            },
+          },
+        },
+        today: {
+          starts: [],
+        },
+        tomorrow: {
+          starts: [],
+        },
+        immediate: {
+          starts: [],
+        },
+        late: {
+          starts: [],
+        },
       },
     },
     passed: {
       blocks: {
-        vip: { blocks: { vip: { starts: [] }, top: { starts: [] } } },
-        yesterday: { starts: [] },
-        recent: { starts: [] },
-        old: { starts: [] },
+        vip: {
+          blocks: {
+            vip: {
+              starts: [],
+            },
+            top: {
+              starts: [],
+            },
+          },
+        },
+        yesterday: {
+          starts: [],
+        },
+        recent: {
+          starts: [],
+        },
+        old: {
+          starts: [],
+        },
       },
     },
   };
 
-  const { soon, passed } = { ...defaultColumns, ...worlds.columns };
+  // worlds.columns mavjudligini tekshirish
+  const { soon, passed } = { ...defaultColumns, ...(worlds.columns || {}) };
   const { vip: soonVipBlocks, today, tomorrow, immediate, late } = soon.blocks;
   const { vip: passedVipBlocks, yesterday, recent, old } = passed.blocks;
   const { vip: soonVip, top: soonTop } = soonVipBlocks.blocks;
