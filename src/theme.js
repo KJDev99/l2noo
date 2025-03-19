@@ -47,6 +47,7 @@ const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
+        "*": { disableGeneration: true },
         html: {
           "@media (max-width: 600px)": {
             padding: 0,

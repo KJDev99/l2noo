@@ -6,11 +6,10 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import React from "react";
 import { styled } from "@mui/system";
-import queryString, { stringify } from "query-string";
+import queryString from "query-string";
 import useSWR from "swr";
 
-// MUI 5 da makeStyles ni styled bilan almashtiramiz
-const PaperStyled = styled(Paper)(({ theme }) => ({
+const PaperStyled = styled("div")(({ theme }) => ({
   marginTop: theme.spacing(3),
   borderTop: "1px solid #ECF5F8",
   borderRadius: "unset",
@@ -36,7 +35,7 @@ const Index = ({ query, worlds, title, description, content }) => {
       skipEmptyString: true,
     })}`,
     fetcher,
-    { initialData: worlds, revalidateOnMount: true }
+    { fallbackData: worlds, revalidateOnMount: true }
   );
 
   return (
@@ -79,16 +78,19 @@ export async function getStaticProps(ctx) {
   );
   const worldsData = await res.json();
 
+  console.log(query, "tests2");
+  console.log(pageData, "pageData");
+
   return {
     props: {
-      h1: pageData.name || null,
-      title: pageData.title || null,
-      description: pageData.description || null,
-      content: pageData.content || null,
-      query: query || null,
-      worlds: worldsData,
-      labels: labelsData,
-      chronicles: chroniclesData,
+      h1: pageData?.name || "",
+      title: pageData?.title || "",
+      description: pageData?.description || "",
+      content: pageData?.content || "",
+      query: query || [],
+      worlds: worldsData || [],
+      labels: labelsData || [],
+      chronicles: chroniclesData || [],
     },
     revalidate: 20,
   };

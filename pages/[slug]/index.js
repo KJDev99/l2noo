@@ -19,8 +19,12 @@ export const getStaticPaths = async () => {
   ]);
 
   const paths = [
-    ...chroniclesData.map(({ slug }) => ({ params: { slug } })),
-    ...labelsData.map(({ slug }) => ({ params: { slug } })),
+    ...(Array.isArray(chroniclesData)
+      ? chroniclesData.map(({ slug }) => ({ params: { slug } }))
+      : []),
+    ...(Array.isArray(labelsData)
+      ? labelsData.map(({ slug }) => ({ params: { slug } }))
+      : []),
   ];
 
   return {

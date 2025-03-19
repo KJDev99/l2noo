@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useContext } from "react";
 import Link from "next/link";
 import Container from "@mui/material/Container";
@@ -63,7 +61,7 @@ function Header({ h1 = "Анонсы Lineage 2 серверов" }) {
         <Toolbar>
           <Hidden smDown>
             <Link prefetch={false} href="/" passHref>
-              <LogoLink>
+              <LogoLink as="span">
                 <LogoLinkBlue>L2</LogoLinkBlue>Noo
                 <LogoLinkMini>.ru</LogoLinkMini>
               </LogoLink>

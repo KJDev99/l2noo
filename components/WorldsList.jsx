@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import World from "./World";
 import { rem } from "polished";
 import Grid from "@mui/material/Grid";
@@ -33,6 +33,16 @@ const Hr = styled(Typography)(({ theme }) => ({
 }));
 
 function WorldsList({ worlds = {} }) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null; // Server tomonida render qilinmasin
+  }
+
   // worlds ni default qiymat bilan ta'minlash
   let defaultColumns = {
     soon: {
@@ -86,8 +96,7 @@ function WorldsList({ worlds = {} }) {
     },
   };
 
-  // worlds.columns mavjudligini tekshirish
-  const { soon, passed } = { ...defaultColumns, ...(worlds.columns || {}) };
+  const { soon, passed } = { ...defaultColumns, ...(worlds?.columns || {}) };
   const { vip: soonVipBlocks, today, tomorrow, immediate, late } = soon.blocks;
   const { vip: passedVipBlocks, yesterday, recent, old } = passed.blocks;
   const { vip: soonVip, top: soonTop } = soonVipBlocks.blocks;

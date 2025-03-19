@@ -1,4 +1,3 @@
-"use client";
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -117,14 +116,13 @@ function Sidebar({ window, chronicles, labels }) {
   const chroniclesView = (
     <ChronicleListRoot>
       <ChronicleList>
-        {/* Barcha xronikalar uchun link */}
         <Link
           href="/"
           passHref
           style={{ textDecoration: "none", color: "inherit", width: "50%" }}
         >
           <ChronicleListItem
-            component="a"
+            component="span"
             className={clsx(router.pathname === "/" && "current")}
             onClick={() => setMobileOpen(false)}
           >
@@ -136,41 +134,11 @@ function Sidebar({ window, chronicles, labels }) {
           </ChronicleListItem>
         </Link>
 
-        {/* Har bir xronika uchun link */}
-        {chronicles.map((chronicle) => (
-          <React.Fragment key={chronicle.chronicleId}>
-            <Link
-              href={"/" + chronicle.slug}
-              passHref
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-                width: "calc(50% - 8px)",
-              }}
-            >
-              <ChronicleListItem
-                component="a"
-                className={clsx(
-                  router.query.slug === chronicle.slug &&
-                    router.route === "/[slug]" &&
-                    "current"
-                )}
-                onClick={() => setMobileOpen(false)}
-              >
-                <ChronicleListItemTextRoot
-                  primary={
-                    <ChronicleListItemText>
-                      {chronicle.name}
-                    </ChronicleListItemText>
-                  }
-                />
-              </ChronicleListItem>
-            </Link>
-
-            {/* Interlude+ uchun alohida link */}
-            {chronicle.slug === "interlude" && (
+        {Array.isArray(chronicles) &&
+          chronicles?.map((chronicle, index) => (
+            <React.Fragment key={index}>
               <Link
-                href="/interlude/plus"
+                href={"/" + chronicle.slug}
                 passHref
                 style={{
                   textDecoration: "none",
@@ -179,24 +147,56 @@ function Sidebar({ window, chronicles, labels }) {
                 }}
               >
                 <ChronicleListItem
-                  component="a"
+                  component="span"
                   className={clsx(
-                    router.query.slug === "interlude" &&
-                      router.query.clarification === "plus" &&
+                    router.query.slug === chronicle.slug &&
+                      router.route === "/[slug]" &&
                       "current"
                   )}
                   onClick={() => setMobileOpen(false)}
                 >
                   <ChronicleListItemTextRoot
                     primary={
-                      <ChronicleListItemText>Interlude+</ChronicleListItemText>
+                      <ChronicleListItemText>
+                        {chronicle.name}
+                      </ChronicleListItemText>
                     }
                   />
                 </ChronicleListItem>
               </Link>
-            )}
-          </React.Fragment>
-        ))}
+
+              {/* Interlude+ uchun alohida link */}
+              {chronicle.slug === "interlude" && (
+                <Link
+                  href="/interlude/plus"
+                  passHref
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    width: "calc(50% - 8px)",
+                  }}
+                >
+                  <ChronicleListItem
+                    component="span"
+                    className={clsx(
+                      router.query.slug === "interlude" &&
+                        router.query.clarification === "plus" &&
+                        "current"
+                    )}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <ChronicleListItemTextRoot
+                      primary={
+                        <ChronicleListItemText>
+                          Interlude+
+                        </ChronicleListItemText>
+                      }
+                    />
+                  </ChronicleListItem>
+                </Link>
+              )}
+            </React.Fragment>
+          ))}
       </ChronicleList>
     </ChronicleListRoot>
   );
@@ -230,17 +230,20 @@ function Sidebar({ window, chronicles, labels }) {
 
   const chipsView = (
     <ChipsRoot>
-      {labels.map((label) => (
-        <Link key={label.labelId} href={"/" + label.slug} passHref>
-          <Chip
-            className={clsx(router.query.slug === label.slug ? "current" : "")}
-            label={label.name}
-            component="a"
-            clickable
-            onClick={() => setMobileOpen(false)}
-          />
-        </Link>
-      ))}
+      {Array.isArray(labels) &&
+        labels.map((label) => (
+          <Link key={label.labelId} href={"/" + label.slug} passHref>
+            <Chip
+              className={clsx(
+                router.query.slug === label.slug ? "current" : ""
+              )}
+              label={label.name}
+              component="span"
+              clickable
+              onClick={() => setMobileOpen(false)}
+            />
+          </Link>
+        ))}
     </ChipsRoot>
   );
 
@@ -253,17 +256,16 @@ function Sidebar({ window, chronicles, labels }) {
   );
 
   const [isClient, setIsClient] = useState(false);
-  const iOS =
-    typeof window !== "undefined" &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const container =
-    typeof window !== "undefined" ? () => window.document.body : undefined;
+  const [iOS, setIsIOS] = useState(false);
+  const [container, setContainer] = useState(undefined);
 
   useEffect(() => {
-    setIsClient(true); // Faqat clientda true bo‘ladi
+    setIsClient(true);
+    setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent));
+    setContainer(() => document.body);
   }, []);
 
-  if (!isClient) return null; // SSR paytida hech narsa qaytarmaslik
+  if (!isClient) return null;
 
   return (
     <Root aria-label="Навигация">

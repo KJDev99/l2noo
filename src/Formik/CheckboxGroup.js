@@ -29,21 +29,22 @@ function CheckboxGroup({ label, name, options, ...rest }) {
     >
       <FormLabel>{label}</FormLabel>
       <FormGroup>
-        {options.map((option) => (
-          <FormControlLabel
-            key={option.value}
-            control={
-              <Checkbox
-                id={option.value}
-                value={option.value}
-                checked={value.includes(option.value)}
-                onChange={() => handleChange(option.value)}
-                {...rest}
-              />
-            }
-            label={option.key}
-          />
-        ))}
+        {Array.isArray(options) &&
+          options.map((option) => (
+            <FormControlLabel
+              key={option.value}
+              control={
+                <Checkbox
+                  id={option.value}
+                  value={option.value}
+                  checked={value.includes(option.value)}
+                  onChange={() => handleChange(option.value)}
+                  {...rest}
+                />
+              }
+              label={option.key}
+            />
+          ))}
       </FormGroup>
       {meta.touched && meta.error && (
         <FormHelperText>{meta.error}</FormHelperText>

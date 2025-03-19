@@ -82,21 +82,22 @@ function FormikFeature({ label, name, options, ...rest }) {
     >
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <RadioGroup name={name} {...field} {...rest}>
-        {options.map((option) => (
-          <VipVariant
-            key={option.value}
-            value={option.value}
-            control={<Radio />}
-            labelPlacement="start"
-            label={
-              <VariantLabel
-                name={option.name}
-                type={option.value}
-                info={option.info}
-              />
-            }
-          />
-        ))}
+        {Array.isArray(options) &&
+          options.map((option) => (
+            <VipVariant
+              key={option.value}
+              value={option.value}
+              control={<Radio />}
+              labelPlacement="start"
+              label={
+                <VariantLabel
+                  name={option.name}
+                  type={option.value}
+                  info={option.info}
+                />
+              }
+            />
+          ))}
       </RadioGroup>
       <FormHelperText>{meta.touched && meta.error}</FormHelperText>
     </FormControl>

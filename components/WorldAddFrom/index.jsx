@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import PropTypes from "prop-types";
@@ -62,14 +60,15 @@ function WorldAddForm({ children, ...props }) {
       {({ isSubmitting }) => (
         <Form autoComplete="off">
           <Stepper activeStep={step}>
-            {childrenArray.map((child, index) => (
-              <Step
-                key={child.props.label}
-                completed={step > index || completed}
-              >
-                <StepLabel>{child.props.label}</StepLabel>
-              </Step>
-            ))}
+            {Array.isArray(childrenArray) &&
+              childrenArray.map((child, index) => (
+                <Step
+                  key={child.props.label}
+                  completed={step > index || completed}
+                >
+                  <StepLabel>{child.props.label}</StepLabel>
+                </Step>
+              ))}
           </Stepper>
 
           {completed ? (

@@ -24,11 +24,12 @@ function FormikSelect({ label, name, options, ...rest }) {
           disableScrollLock: true,
         }}
       >
-        {options.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.key}
-          </MenuItem>
-        ))}
+        {Array.isArray(options) &&
+          options.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.key}
+            </MenuItem>
+          ))}
       </Select>
       <FormHelperText>
         {meta.touched && meta.error ? meta.error : ""}

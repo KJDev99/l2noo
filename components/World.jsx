@@ -209,7 +209,9 @@ const Date = styled("i")(({ theme }) => ({
 }));
 
 function World({ start }) {
-  const labelSlugs = start.labels.map((label) => label.slug);
+  const labelSlugs = Array.isArray(start.labels)
+    ? start.labels.map((label) => label.slug)
+    : [];
 
   return (
     <Root
@@ -230,7 +232,7 @@ function World({ start }) {
             href={`/redirect/${encodeURIComponent(start.worldId)}`}
             passHref
           >
-            <Name component="a" rel="nofollow" target="_blank">
+            <Name component="span" rel="nofollow" target="_blank">
               {start.name || start.host}
             </Name>
           </Link>

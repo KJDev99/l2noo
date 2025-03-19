@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -25,14 +23,15 @@ function StepFeatureForm({ featureOptions }) {
           <FormikFeature name="feature" label="" options={featureOptions} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          {featureOptions.map((option) =>
-            option.value === values.feature ? (
-              <React.Fragment key={option.value}>
-                <Advantages advantages={option.advantages} />
-                <Disadvantages disadvantages={option.disadvantages} />
-              </React.Fragment>
-            ) : null
-          )}
+          {Array.isArray(featureOptions) &&
+            featureOptions.map((option) =>
+              option.value === values.feature ? (
+                <React.Fragment key={option.value}>
+                  <Advantages advantages={option.advantages} />
+                  <Disadvantages disadvantages={option.disadvantages} />
+                </React.Fragment>
+              ) : null
+            )}
         </Grid>
       </Grid>
     </>
@@ -46,9 +45,10 @@ function Advantages({ advantages }) {
     <>
       <Typography variant="subtitle1">Преимущества:</Typography>
       <ul>
-        {advantages.map((advantage, index) => (
-          <li key={index}>{advantage}</li>
-        ))}
+        {Array.isArray(advantages) &&
+          advantages.map((advantage, index) => (
+            <li key={index}>{advantage}</li>
+          ))}
       </ul>
     </>
   );
@@ -61,9 +61,10 @@ function Disadvantages({ disadvantages }) {
     <>
       <Typography variant="subtitle1">Недостатки:</Typography>
       <ul>
-        {disadvantages.map((disadvantage, index) => (
-          <li key={index}>{disadvantage}</li>
-        ))}
+        {Array.isArray(disadvantages) &&
+          disadvantages.map((disadvantage, index) => (
+            <li key={index}>{disadvantage}</li>
+          ))}
       </ul>
     </>
   );

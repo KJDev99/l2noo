@@ -147,13 +147,20 @@ const AddWorld = ({ chroniclesForm, labelsForm }) => (
               })}
             >
               <StepWorldForm
-                chronicleOptions={chroniclesForm.map(
-                  ({ name, chronicleId }) => ({ key: name, value: chronicleId })
-                )}
-                labelOptions={labelsForm.map(({ name, labelId }) => ({
-                  key: name,
-                  value: labelId,
-                }))}
+                chronicleOptions={
+                  Array.isArray(chroniclesForm) &&
+                  chroniclesForm.map(({ name, chronicleId }) => ({
+                    key: name,
+                    value: chronicleId,
+                  }))
+                }
+                labelOptions={
+                  Array.isArray(labelsForm) &&
+                  labelsForm.map(({ name, labelId }) => ({
+                    key: name,
+                    value: labelId,
+                  }))
+                }
               />
             </WorldAddFormStep>
           </WorldAddForm>
@@ -210,7 +217,10 @@ export async function getStaticProps() {
       ).then((res) => res.json()),
     ]);
   return {
-    props: { chroniclesForm: chroniclesFormData, labelsForm: labelsFormData },
+    props: {
+      chroniclesForm: chroniclesFormData || [],
+      labelsForm: labelsFormData || [],
+    },
   };
 }
 
