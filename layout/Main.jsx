@@ -29,7 +29,7 @@ const Bg = styled("i")(({ theme }) => ({
   width: "100%",
   height: 600,
   display: "block",
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     background: "unset",
   },
 }));

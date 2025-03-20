@@ -8,7 +8,7 @@ const theme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 900,
+      md: 960,
       lg: 1280,
       xl: 1536,
     },
@@ -49,7 +49,7 @@ const theme = createTheme({
       styleOverrides: {
         "*": { disableGeneration: true },
         html: {
-          "@media (max-width: 600px)": {
+          "@media (max-width: 960px)": {
             padding: 0,
           },
           padding: "280px 0 0 0",

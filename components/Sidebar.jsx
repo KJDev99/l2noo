@@ -18,7 +18,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 const drawerWidth = 240;
 
 const Root = styled("nav")(({ theme }) => ({
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     width: `calc(${drawerWidth}px + ${parseInt(theme.spacing(3), 10) * 2}px)`,
     flexShrink: 0,
     padding: parseInt(theme.spacing(3), 10),
@@ -83,10 +83,10 @@ const ChipsRoot = styled("div")(({ theme }) => ({
 
 const ChipRoot = styled(Chip)(({ theme }) => ({
   fontWeight: 500,
-  fontSize: rem(12),
+  fontSize: "12px",
   backgroundColor: "#D9E8EC",
-  height: 28,
-  borderRadius: 3,
+  height: "28px",
+  borderRadius: "3px",
   "&:hover": {
     backgroundColor: "#C6D7DC",
   },
@@ -107,7 +107,6 @@ const ChipRootCurrent = styled(ChipRoot)({
     color: "#FFFFFF",
   },
 });
-
 function Sidebar({ window, chronicles, labels }) {
   const router = useRouter();
   const { mobileOpen, setMobileOpen } = useContext(Global);
@@ -232,16 +231,22 @@ function Sidebar({ window, chronicles, labels }) {
     <ChipsRoot>
       {Array.isArray(labels) &&
         labels.map((label) => (
-          <Link key={label.labelId} href={"/" + label.slug} passHref>
-            <Chip
-              className={clsx(
-                router.query.slug === label.slug ? "current" : ""
-              )}
-              label={label.name}
-              component="span"
-              clickable
-              onClick={() => setMobileOpen(false)}
-            />
+          <Link key={label.labelId} href={`/${label.slug}`} passHref>
+            {router.query.slug === label.slug ? (
+              <ChipRootCurrent
+                label={label.name}
+                component="span"
+                clickable
+                onClick={() => setMobileOpen(false)}
+              />
+            ) : (
+              <ChipRoot
+                label={label.name}
+                component="span"
+                clickable
+                onClick={() => setMobileOpen(false)}
+              />
+            )}
           </Link>
         ))}
     </ChipsRoot>

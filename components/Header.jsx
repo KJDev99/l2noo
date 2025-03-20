@@ -59,7 +59,7 @@ function Header({ h1 = "Анонсы Lineage 2 серверов" }) {
     <RootContainer maxWidth="lg" disableGutters>
       <StyledAppBar position="relative">
         <Toolbar>
-          <Hidden smDown>
+          <Hidden mdDown>
             <Link prefetch={false} href="/" passHref>
               <LogoLink as="span">
                 <LogoLinkBlue>L2</LogoLinkBlue>Noo
@@ -79,7 +79,7 @@ function Header({ h1 = "Анонсы Lineage 2 серверов" }) {
           >
             {h1}
           </Typography>
-          <Hidden smDown>
+          <Hidden mdDown>
             <Link prefetch={false} href="/add-world" passHref>
               <HeaderButton
                 variant="contained"
