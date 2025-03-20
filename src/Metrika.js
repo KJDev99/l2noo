@@ -7,27 +7,27 @@ const YandexMetrika = (code) => (Page) => {
   const WithAnalytics = (props) => {
     const router = useRouter();
 
-    useEffect(() => {
-      if (
-        typeof window !== "undefined" &&
-        process.env.NODE_ENV === "production"
-      ) {
-        const handleRouteChange = (url) => {
-          ym("hit", url);
-        };
+    // useEffect(() => {
+    //   if (
+    //     typeof window !== "undefined" &&
+    //     process.env.NODE_ENV === "production"
+    //   ) {
+    //     const handleRouteChange = (url) => {
+    //       ym("hit", url);
+    //     };
 
-        handleRouteChange(window.location.pathname + window.location.search);
-        router.events.on("routeChangeComplete", handleRouteChange);
+    //     handleRouteChange(window.location.pathname + window.location.search);
+    //     router.events.on("routeChangeComplete", handleRouteChange);
 
-        return () => {
-          router.events.off("routeChangeComplete", handleRouteChange);
-        };
-      }
-    }, [router.events]);
+    //     return () => {
+    //       router.events.off("routeChangeComplete", handleRouteChange);
+    //     };
+    //   }
+    // }, [router.events]);
 
     return (
       <>
-        {process.env.NODE_ENV === "production" && (
+        {/* {process.env.NODE_ENV === "production" && (
           <Head>
             <YMInitializer
               accounts={[parseInt(code)]}
@@ -35,7 +35,7 @@ const YandexMetrika = (code) => (Page) => {
               version="2"
             />
           </Head>
-        )}
+        )} */}
         <Page {...props} />
       </>
     );

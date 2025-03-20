@@ -78,9 +78,6 @@ export async function getStaticProps(ctx) {
   );
   const worldsData = await res.json();
 
-  console.log(query, "tests2");
-  console.log(pageData, "pageData");
-
   return {
     props: {
       h1: pageData?.name || "",
